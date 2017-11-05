@@ -8,8 +8,7 @@ from setuptools import setup
 setup(
     name='crawlyn',
     version=crawlyn.__version__,
-    description="Experimental crawler to scrape internal links and email addresses "
-                "from websites, including obfuscated email addresses.",
+    description="Experimental crawler to grab data from websites.",
     long_description=open('README.txt').read(),
     author='Galou Gentil',
     author_email='hello@cryptoki.fr',
