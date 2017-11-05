@@ -1,55 +1,57 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Experimental crawler to scrape internal links and email addresses 
-from websites, including obfuscated email addresses. This project is 
-for educational purposes only.
+Experimental crawler to grab data from websites. 
+This project is for educational purposes only.
 
 Usage:
-    crawlyn [URLS ...] [--help] [--output=OUTFILE] [--version]
+    crawlyn BASEURLS... [--output=<OUTFILE>] [--proxyhost=<PROXYHOST> --proxyport=<PROXYPORT>]
+    crawlyn -h | --help
+    crawlyn -v | --version
+
+Arguments:
+    <OUTFILE>           Name output file.
+    <PROXYHOST>         Specify the proxy host address.
+    <PROXYPORT>         Specify the proxy port number.
 
 Options:
-    -h --help                   Show this message.
-    -o --output=OUTFILE         Name output file.
-    -v --version                Show version.
+    -h --help           Show this message.
+    -v --version        Show version.
 """
 
-import json
 import logging
 import sys
 
 from . import crawlyn
+from . import driver
+from . import utils
 from . import __version__
 from docopt import docopt
-
-def json_for(results):
-    """
-    Serialize results to JSON.
-    """
-    return json.dumps(results, indent=4, sort_keys=True)
-
-def save_results(results, output):
-    """
-    Save results to a file.
-    """
-    with open(output, 'w') as f:
-        f.write(results + '\n')
-        logging.warning("Wrote results to %s.", output)
 
 def main():
     args = docopt(__doc__, version=__version__)
 
-    if not args['URLS']:
-        logging.warning("Please input at least one URL.")
+    proxy_host = args['--proxyhost']
+    proxy_port = args['--proxyport']
+
+    if sum(a is not None for a in (proxy_host, proxy_port)) == 1:
+        logging.warning("Both proxy host address and port number needs to be set.")
         sys.exit(1)
 
-    crawler = crawlyn.Crawler(args['URLS'])
-    results = json_for(crawler.run(args))
+    if proxy_port and not str(proxy_port).isdigit():
+        logging.warning("Please input a valid proxy port number.")
+        sys.exit(1)
+
+    browser = driver.Browser(proxy_host, proxy_port)
+    crawler = crawlyn.Crawler(browser, args['BASEURLS'])
+    results = utils.json_for(crawler.run(args))
+
+    browser.quit()
 
     if args['--output'] is None:
         print(results)
     else:
-        save_results(results, args['--output'])
+        utils.save(results, args['--output'])
 
 if __name__ == '__main__':
     main()

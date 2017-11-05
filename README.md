@@ -1,6 +1,11 @@
 # Crawlyn
 
-Crawlyn is an experimental crawler to scrape internal links and email addresses from websites, including obfuscated email addresses. This project is for educational purposes only.
+Experimental crawler to grab data from websites, including:
+
+* Internal links.
+* Plain-text and obfuscated email addresses.
+
+This project is for educational purposes only.
 
 ## Installation
 
@@ -20,11 +25,11 @@ The results are printed to the console in JSON format.
 
 ``$ crawlyn https://www.example.com/ --output /path/to/results.json``
 
-## To Do
+**Running Crawlyn with a proxy:**
 
-* Performance improvements.
-* Phone numbers scraping.
-* Unit tests.
+``$ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999``
+
+Both proxy host address and port number needs to be set.
 
 ## License
 

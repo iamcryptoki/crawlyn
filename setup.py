@@ -23,7 +23,7 @@ setup(
             'bin/phantomjs/linux/64/phantomjs',
             'bin/phantomjs/macos/phantomjs',
             'bin/phantomjs/windows/phantomjs.exe'
-            ]
+        ]
     },
     install_requires=['docopt', 'lxml', 'selenium'],
     entry_points={

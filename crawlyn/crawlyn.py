@@ -4,7 +4,6 @@
 import logging
 import os
 import re
-import sys
 
 from bs4 import BeautifulSoup
 from collections import deque
@@ -14,28 +13,12 @@ from urllib.parse import urldefrag, urljoin, urlparse
 _dir = os.path.dirname(os.path.abspath(__file__))
 
 class Crawler(object):
-    def __init__(self, base_urls):
+    def __init__(self, browser, base_urls):
         self.base_urls = base_urls
-        self.browser = webdriver.PhantomJS(
-            self.get_driver(),
-            service_log_path=os.path.devnull)
+        self.browser = browser
         self.crawled_urls = []
         self.results = {}
         self.url_queue = {}
-
-    def get_driver(self):
-        """
-        Get path to PhantomJS executable.
-        """
-        arch = '64' if sys.maxsize > 2**32 else '32'
-        path = '{0}/bin/phantomjs'.format(_dir)
-        if 'darwin' in sys.platform:
-            driver = r'{0}/macos/phantomjs'.format(path)
-        elif 'linux' in sys.platform:
-            driver = r'{0}/linux/{1}/phantomjs'.format(path, arch)
-        elif 'win32' in sys.platform:
-            driver = r'{0}/windows/phantomjs.exe'.format(path)
-        return driver
 
     def get_page_source(self, url):
         """
