@@ -1,15 +1,18 @@
 # Crawlyn
 #########
 
-Crawlyn is an experimental crawler to scrape internal links and email addresses from websites, including obfuscated email addresses. This project is for educational purposes only.
+Experimental crawler to grab data from websites, including:
 
-Installation
-------------
+* Internal links.
+* Plain-text and obfuscated email addresses.
+
+This project is for educational purposes only.
+
+## Installation
 
 pip install git+https://github.com/iamcryptoki/crawlyn.git
 
-Usage
------
+## Usage
 
 Basic usage:
 
@@ -19,18 +22,16 @@ $ crawlyn https://www.example.com/ https://fakedomain.org/
 
 The results are printed to the console in JSON format.
 
-Save results to a JSON file:
+Save results to a file:
 
 $ crawlyn https://www.example.com/ --output /path/to/results.json
 
-To Do
------
+Running Crawlyn with a proxy:
 
-* Performance improvements.
-* Phone numbers scraping.
-* Unit tests.
+$ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999
 
-License
--------
+Both proxy host address and port number needs to be set.
 
-This code is released under a free software [license](LICENSE.txt) and you are welcome to fork it.
+## License
+
+This code is released under a free software license and you are welcome to fork it.
