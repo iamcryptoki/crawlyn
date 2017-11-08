@@ -10,9 +10,10 @@ from selenium.webdriver import DesiredCapabilities
 _dir = os.path.dirname(os.path.abspath(__file__))
 
 class Browser(webdriver.PhantomJS):
-    def __init__(self, proxy_host=None, proxy_port=None, tor=False):
+    def __init__(self, proxy_host=None, proxy_port=None, proxy_type=None, tor=False):
         self.proxy_host = '127.0.0.1' if tor else proxy_host
         self.proxy_port = '9050' if tor else proxy_port
+        self.proxy_type = 'http' if proxy_type is None else proxy_type
 
         webdriver.PhantomJS.__init__(self,
                                      executable_path=self.phantomjs(),
@@ -41,7 +42,7 @@ class Browser(webdriver.PhantomJS):
         if tor or all((self.proxy_host, self.proxy_port)):
             return [
                 '--proxy={0}:{1}'.format(self.proxy_host, self.proxy_port),
-                '--proxy-type={0}'.format('socks5' if tor else 'http'),
+                '--proxy-type={0}'.format('socks5' if tor else self.proxy_type)
             ]
         return
 

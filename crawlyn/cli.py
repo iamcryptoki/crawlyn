@@ -5,15 +5,15 @@ Experimental crawler to grab data from websites.
 This project is for educational purposes only.
 
 Usage:
-    crawlyn BASEURLS... [--output=<OUTFILE>] [--proxyhost=<PROXYHOST> --proxyport=<PROXYPORT>] [--tor]
+    crawlyn BASEURLS... [--output=<OUTFILE>] [--proxyhost=<PROXYHOST> --proxyport=<PROXYPORT> --proxytype=<PROXYTYPE>] [--tor]
     crawlyn -h | --help
-    crawlyn -t | --tor
     crawlyn -v | --version
 
 Arguments:
     <OUTFILE>           Name output file.
     <PROXYHOST>         Specify the proxy host address.
     <PROXYPORT>         Specify the proxy port number.
+    <PROXYTYPE>         Specify the proxy protocol to use.
 
 Options:
     -h --help           Show this message.
@@ -44,7 +44,7 @@ def main():
         logging.warning("Please input a valid proxy port number.")
         sys.exit(1)
 
-    browser = driver.Browser(proxy_host, proxy_port, args['--tor'])
+    browser = driver.Browser(proxy_host, proxy_port, args['--proxytype'], args['--tor'])
     crawler = crawlyn.Crawler(browser, args['BASEURLS'])
     results = utils.json_for(crawler.run(args))
 
