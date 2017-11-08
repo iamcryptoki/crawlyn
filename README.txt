@@ -32,6 +32,10 @@ $ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999
 
 Both proxy host address and port number needs to be set.
 
+Running Crawlyn with Tor:
+
+$ crawlyn https://www.example.com/ --tor
+
 ## License
 
 This code is released under a free software license and you are welcome to fork it.

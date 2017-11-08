@@ -21,7 +21,7 @@ This project is for educational purposes only.
 
 The results are printed to the console in JSON format.
 
-**Save results to a JSON file:**
+**Save results to a file:**
 
 ``$ crawlyn https://www.example.com/ --output /path/to/results.json``
 
@@ -30,6 +30,10 @@ The results are printed to the console in JSON format.
 ``$ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999``
 
 Both proxy host address and port number needs to be set.
+
+**Running Crawlyn with Tor:**
+
+``$ crawlyn https://www.example.com/ --tor``
 
 ## License
 
