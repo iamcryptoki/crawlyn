@@ -27,7 +27,7 @@ The results are printed to the console in JSON format.
 
 **Running Crawlyn with a proxy:**
 
-``$ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999 --proxytype=socks5``
+``$ crawlyn https://www.example.com/ --proxyhost 127.0.0.1 --proxyport 9999 --proxytype socks5``
 
 Both proxy host address and port number needs to be set.
 
