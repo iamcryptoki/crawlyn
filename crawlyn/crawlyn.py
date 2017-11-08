@@ -74,7 +74,9 @@ class Crawler(object):
                     self.results[host]['urls'] = []
                 self.results[host]['urls'].append(current_url)
 
-                html = self.get_page_source(current_url)
+                scripts = re.compile(r'<(script).*?</\1>(?s)')
+                html = scripts.sub('', self.get_page_source(current_url))
+
                 self.get_page_emails(host, html)
 
                 soup = self.get_soup(html)
