@@ -5,17 +5,12 @@ Experimental crawler to grab data from websites, including:
 * Internal links.
 * Plain-text and obfuscated email addresses.
 * Plain-text and obfuscated phone numbers. Supported formats:
-  - 0123456789
-  - 01 23 45 67 89
+  - 0123456789, 01 23 45 67 89
   - +33 1 23 45 67 89
-  - 3334445555
+  - 3334445555, 333 444 5555, 333 4445555
   - 333.444.5555
-  - 333-444-5555
-  - 333 444 5555
-  - 333 4445555
-  - 333444-5555
-  - (333) 444 5555
-  - (333)4445555
+  - 333-444-5555, 333444-5555
+  - (333) 444 5555, (333)4445555
 
 This project is for educational purposes only.
 
