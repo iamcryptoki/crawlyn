@@ -5,6 +5,7 @@ import logging
 import os
 import re
 
+from . import scraper as scrape
 from bs4 import BeautifulSoup
 from collections import deque
 from selenium import webdriver
@@ -41,24 +42,10 @@ class Crawler(object):
                 if url.startswith(base):
                     self.url_queue.append(url)
 
-    def get_page_emails(self, host, html):
-        """
-        Extract all email addresses from the given HTML.
-        """
-        pattern = re.compile(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}\b',
-                             re.MULTILINE | re.IGNORECASE)
-        emails = re.findall(pattern, html)
-        for email in emails:
-            if not 'emails' in self.results[host].keys():
-                self.results[host]['emails'] = []
-            if email not in self.results[host]['emails']:
-                self.results[host]['emails'].append(email)
-
     def get_soup(self, html):
         if html is not None:
             return BeautifulSoup(html, 'lxml')
-        else:
-            return
+        return
 
     def run(self, args):
         for base in self.base_urls:
@@ -77,7 +64,8 @@ class Crawler(object):
                 scripts = re.compile(r'<(script).*?</\1>(?s)')
                 html = scripts.sub('', self.get_page_source(current_url))
 
-                self.get_page_emails(host, html)
+                scrape.email_addresses(self.results, host, html)
+                scrape.phone_numbers(self.results, host, html)
 
                 soup = self.get_soup(html)
                 if soup is not None:
